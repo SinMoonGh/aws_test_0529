@@ -1,4 +1,5 @@
 # .github/workflows/deploy.yml
+# 1
 name: Deploy Django to AWS EC2 with Git
 
 on:
