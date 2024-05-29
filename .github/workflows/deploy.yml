@@ -21,10 +21,10 @@ jobs:
     - name: Sync and Deploy
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        if [ ! -d "/path/to/directory" ]; then
-          git clone https://github.com/your-username/your-repo.git /path/to/directory
+        if [ ! -d "/home/ubuntu/aws_test_0529" ]; then
+          git clone https://github.com/your-username/your-repo.git /home/ubuntu/aws_test_0529
         else
-          cd /path/to/directory
+          cd /home/ubuntu/aws_test_0529
           git pull
         fi
         docker-compose build
