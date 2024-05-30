@@ -30,17 +30,20 @@ jobs:
         echo "Docker Deployment took $((end_time - start_time)) seconds"
 
 
-    - name: Deploy to None Docker
+    - name: Deploy to Non-Docker
       run: |
         start_time=$(date +%s)
-        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.DOCKER_HOST }} "
+        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.NON_DOCKER_HOST }} "
         cd /home/ubuntu/aws_test_0529
         git pull
-        sudo docker-compose down
-        sudo docker-compose up -d --build
+        source /home/ubuntu/env/bin/activate
+        pip install -r requirements.txt
+        python manage.py migrate
+        python manage.py collectstatic --no-input
+        sudo systemctl restart myapp
         "
         end_time=$(date +%s)
-        echo "Docker Deployment took $((end_time - start_time)) seconds"
+        echo "Non-Docker Deployment took $((end_time - start_time)) seconds"
 
 
     
